@@ -26,8 +26,13 @@
  *      ]
  *    }
  * 
- *  nowa.train(text, tags)
+ *  nowa.train(text, tags, success, failure)
  *
+ *  function success(response)
+ *  { alert('Trained!'); }
+ *
+ *  function failure()
+ *  { alert('Network problem!'); }
  *
  * ------------------------------------------------------------------------------  
  * Example classification call:
@@ -35,10 +40,15 @@
  *  nowa.api_key = "SASDKJH86876SDJHGBG"; // Your api key
  *  
  *  text = "I found something called a unicorn but I'm not sure what type of animal it is";
- *  classifications = nowa.classify(text);
+ *  nowa.classify(text, success, failure);
  *
- *  console.log("With regards to " = classifications.subject[0]);
- *  console.log("You are most likely talking about a: " = classifications.animal_type[0]);
+ *  function success(classifications)
+ *  {
+ *    console.log("With regards to " = classifications.subject[0]);
+ *    console.log("You are most likely talking about a: " = classifications.animal_type[0]);
+ *  }
+ *  function failure()
+ *  { alert('Network problem!'); }
  *
  * ------------------------------------------------------------------------------
  */
@@ -46,21 +56,21 @@
 (function( nowa, $, undefined ) {
     // SET ME! - your API key
     nowa.api_key = "YOUR_API_KEY";
-
+    nowa.api_end_point = "http://ingeniapi.com";
+    
     // Private internal variables
     // API Details
-    var api_end_point = "www.ingeniapi.com"
-    var api_version   = "1.0"
+    var api_version   = "1.0";
           
-    // Paths
-    var train_path      = api_end_point + "/train"
-    var classify_path   = api_end_point + "/classify"
+    // Action paths
+    var train_path      = "/train";
+    var classify_path   = "/classify";
 
     /**
      * Classify this text and return any relevant tags, together with their certrainty
      * 
      * params: text - the text to classify
-     * returns: response - JSON hash in the form:
+     * params: success -  callback function that is passed the returned data
      *
      * {
      *    "classification_status":"complete",
@@ -74,19 +84,17 @@
      * }
      *
      */
-    nowa.classify = function(text){
+    nowa.classify = function(text, success, failure)
+    {
       authenticate();
 
-      $.post(classify_path, 
+      var response = $.post(nowa.api_end_point + classify_path, 
         { 
           text: text,
           api_version: api_version
         },
-        function(response_data)
-        {
-          return response_data;
-        }, 
-        "json");
+        success, 
+        "json").error(failure);
     };
 
     /**
@@ -112,20 +120,17 @@
      *        "status":"okay"
      *   }
      */
-    nowa.train = function(text, tags)
+    nowa.train = function(text, tags, success, failure)
     {
       authenticate();
 
-      $.post(train_path, 
+      $.post(nowa.api_end_point + train_path, 
       { 
           text: text,
           tag_set: JSON.stringify(tags),
           api_version: api_version
       },
-      function(data)
-      {
-        return data;
-      }, "json");
+      success, "json").error(failure);
     }
 
     //Private Methods
