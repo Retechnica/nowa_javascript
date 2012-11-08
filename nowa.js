@@ -127,7 +127,7 @@
       $.post(nowa.api_end_point + train_path, 
       { 
           text: text,
-          tag_set: JSON.stringify(tags),
+          tag_sets: JSON.stringify(tags),
           api_version: api_version
       },
       success, "json").error(failure);
@@ -152,15 +152,3 @@
     }
 
 }( window.nowa = window.nowa || {}, jQuery ));
-
-
-
-
-
-
-
-
-
-
-
-
