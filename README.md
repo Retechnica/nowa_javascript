@@ -10,6 +10,8 @@ Setup
 
   `<script type="text/javascript" src="nowa.js">`
 
+3. Include jQuery [official site](http://jquery.com/)
+4. Include javascriptbase64 [google code](http://code.google.com/p/javascriptbase64/downloads/list)
 
 Train Example
 -------------
