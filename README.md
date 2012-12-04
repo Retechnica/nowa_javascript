@@ -1,11 +1,11 @@
-Nowa API - Javascript
+Ingenia - Javascript
 =====================
-This is an example implimentation of an API layer for use with the Nowa classification engine
+This is an example implimentation of an API layer for use with the Ingenia classification engine
 
 
 Setup
 -----
-1. Get an API key from Nowa [here](http://ingeniapi.com/)
+1. Get an API key from Ingenia [here](http://ingeniapi.com/)
 2. Download the nowa.js file and include it on your page/app
 
   `<script type="text/javascript" src="nowa.js">`
