@@ -51,8 +51,8 @@ Classify Example
 
     function success(classifications)
     {
-     console.log("With regards to " = classifications.subject[0]);
-     console.log("You are most likely talking about a: " = classifications.animal_type[0]);
+     console.log("With regards to " + classifications.subject[0]);
+     console.log("You are most likely talking about a: " + classifications.animal_type[0]);
     }
     function failure()
     { alert('Network problem!'); }
